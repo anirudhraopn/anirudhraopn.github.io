@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+  <meta name="flutter-web-renderer" content="canvaskit">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A demo application">
+  
+  <link rel="manifest" href="manifest.json">
+  <title>portfolio</title>
+
+  <style>
+    /* Splash container */
+    #splash-container {
+      position: fixed;
+      inset: 0; /* top, right, bottom, left: 0 */
+      background-color: black; /* background behind loader */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    /* Loader video */
+    #splash-video {
+      width: 120px;  /* adjust size of loader */
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash Loader -->
+  <div id="splash-container">
+    <video id="splash-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/splash.webm" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Flutter App Bootstrap -->
+  <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Remove splash AFTER Flutter's first frame -->
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash-container');
+      if (splash) {
+        splash.style.transition = 'opacity 0.3s ease';
+        splash.style.opacity = '0';
+        setTimeout(() => splash.remove(), 300);
+      }
+    });
+  </script>
+</body>
+</html>
